@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Treiky V 0.1</title>
+    <title>Treiky</title>
     <meta name="description" content="">
     <meta name="author" content="Dalmasso Pablo">
     {% bootstrap_stylesheet_tag %}
@@ -25,7 +25,7 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="{% url home %}">Treiky V 0.1</a>
+            <a class="brand" href="{% url home %}">Treiky</a>
             <ul class="nav">
                 <li><a href="{% url home %}" class=""><span class="new-wrapper"><i class="icon-home"></i></span> Index</a></li>
                     {% if user.is_authenticated %}
@@ -68,9 +68,15 @@
                         <li><a href="" > </a></li>
                         <li><a href="" > </a></li>
                         <li><a href="" > </a></li>
+                        <li><a href="" > </a></li>
+                        <li><a href="" > </a></li>
+                        <li><a href="" > </a></li>
                         <li><a href="/accounts/login/"><span class="new-wrapper"><i class="icon-user"></i></span> Login</a></li>
                     {% endif %}
                     {% if user.is_authenticated %}
+                        <li><a href="" > </a></li>
+                        <li><a href="" > </a></li>
+                        <li><a href="" > </a></li>
                         <li><a href="" > </a></li>
                         <li><a href="" > </a></li>
                         <li><a href="" > </a></li>
@@ -111,9 +117,13 @@
         </div>
         <div class="span6" style="text-align:right">
             <p>
-                <a href="#">Home</a>
+                {% if user.is_authenticated %}
+                <a href="/logout" ><span class="new-wrapper"><i class="icon-off"></i></span> Logout</a>
+                {% else %}
+                <a href="/accounts/login/"><span class="new-wrapper"><i class="icon-user"></i></span> Login</a>
+                {% endif %}
                 |
-                y que miras?
+                <a href="#">Home</a>
             </p>
         </div>
     </footer>

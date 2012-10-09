@@ -30,8 +30,7 @@ def write_req(request):
             new_req.save()
             return view_req(request)
     else:
-        form = reqForm()
-
+        form = reqForm(initial = request.user)
     return render_to_response('form.html', RequestContext(request, {
         'form': form,
         'layout': layout,

@@ -12,6 +12,8 @@ PRIORIDAD_CHOICES = (
 class reqForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
+        user_details = kwargs.pop('initial', None)
+        print user_details
         super(reqForm, self).__init__(*args, **kwargs)
         self.fields['project'].label = "Para el proyecto"
         self.fields['role'].label = "Yo como"
@@ -20,9 +22,12 @@ class reqForm(ModelForm):
         self.fields['project'].error_messages={'required': 'Debe seleccionar un proyecto'}
         self.fields['role'].error_messages={'required': 'El campo es requerido'}
         self.fields['description'].error_messages={'required': 'El campo es requerido'}
+        self.fields['project'].queryset = Project.objects.filter(user=user_details)
+
 
     class Meta:
         model = Requirement
+
         widgets = {
             'project': Select(),
             'role': TextInput,

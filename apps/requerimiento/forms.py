@@ -13,7 +13,6 @@ class reqForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         user_details = kwargs.pop('initial', None)
-        print user_details
         super(reqForm, self).__init__(*args, **kwargs)
         self.fields['project'].label = "Para el proyecto"
         self.fields['role'].label = "Yo como"

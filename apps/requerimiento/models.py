@@ -15,6 +15,24 @@ class Project(models.Model):
         return "%s" % (self.name,)
 
 
+class Profile(models.Model):
+
+    name = models.TextField(max_length=20)
+    description = models.TextField(max_length=50)
+
+    def __unicode__(self):
+        return "%s" % (self.name,)
+
+
+class ProfilesUser(models.Model):
+
+    project = models.ForeignKey(Project)
+    user = models.ForeignKey(User)
+    profile = models.ForeignKey(Profile)
+
+    def __unicode__(self):
+        return "Project: %s User: %s" % (self.name,self.user)
+
 class Requirement(models.Model):
     """
     Model to represent the requerimiento.

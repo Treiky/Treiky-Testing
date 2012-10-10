@@ -13,7 +13,7 @@ def view_req(request):
         'list_Requirements.html',
         RequestContext(
             request,
-            {'requerimiento': Requirement.objects.filter(project__user=request.user).order_by('-date_created')}
+            {'requerimiento': Requirement.objects.filter(project__user=request.user).order_by('-date_created'),}
             ),
                 )
 
@@ -34,6 +34,7 @@ def write_req(request):
     return render_to_response('form.html', RequestContext(request, {
         'form': form,
         'layout': layout,
+        'title': 'Publique su nuevo Requerimiento:',
         }))
 
 
@@ -50,9 +51,10 @@ def write_project(request):
     else:
         form = projForm()
 
-    return render_to_response('form_Proyectos.html', RequestContext(request, {
+    return render_to_response('form.html', RequestContext(request, {
         'form': form,
         'layout': layout,
+        'title': 'Alta de Proyectos:',
         }))
 
 

@@ -13,7 +13,7 @@ class profileAdmin(admin.ModelAdmin):
 
 
 class profileUserAdmin(admin.ModelAdmin):
-    list_display = ('project__name', 'user__username', 'profile',)
+    list_display = ('project', 'user', 'profile',)
 
 admin.site.register(Requirement, reqAdmin)
 admin.site.register(Project,)

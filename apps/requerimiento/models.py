@@ -31,7 +31,7 @@ class ProfilesUser(models.Model):
     profile = models.ForeignKey(Profile)
 
     def __unicode__(self):
-        return "Project: %s User: %s" % (self.name,self.user)
+        return "Project: %s User: %s" % (self.project,self.user)
 
 class Requirement(models.Model):
     """

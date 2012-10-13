@@ -31,7 +31,8 @@ class ProfilesUser(models.Model):
     profile = models.ForeignKey(Profile)
 
     def __unicode__(self):
-        return "Project: %s User: %s" % (self.project,self.user)
+        return "Project: %s User: %s" % (self.project, self.user)
+
 
 class Requirement(models.Model):
     """
@@ -45,5 +46,6 @@ class Requirement(models.Model):
     date_created = models.DateTimeField(default=datetime.datetime.now)
 
     def __unicode__(self):
-        return "Author: %s, Requirement: %s" % (self.author.username, self.description,)
+        return "Author: %s, Requirement: %s" % (
+            self.author.username, self.description,)
 

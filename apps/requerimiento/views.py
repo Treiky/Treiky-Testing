@@ -74,14 +74,16 @@ def new_user(request):
         'layout': layout,
         }))
 
-def resultado_alta_usuario(request, mensaje):
+
+def resultado_alta_usuario(request):
     return render_to_response('respuesta.html', RequestContext(request, {
-        'mensaje': 'El alta se registro correctamente, recibira la clave por email '+mensaje,
+        'mensaje': 'El alta se registro correctamente, recibira la clave por email ',
         }))
+
 
 def resultado_alta_proyecto(request):
     return render_to_response('respuesta.html', RequestContext(request, {
-        'mensaje': 'El proyecto se dio del alta correctamente',
+        'mensaje': 'El cambio se realizo con exito',
         }))
 
 
@@ -95,23 +97,33 @@ def logoutuser(request):
 @login_required
 def update_project(request, project):
     layout = 'vertical'
+    idproject = 0
 
     if request.method == 'POST':
-        print 'prueba'
         form = projForm(request.POST)
+        idproject = request.POST.get('idproject', '')
+        print idproject
         if form.is_valid():
             new_proj = form.save(commit=False)
-            new_proj.save()
+            new_proj.id = idproject
+            print new_proj.name
+            print new_proj.description
+            new_proj.save(force_update=True)
             return resultado_alta_proyecto(request)
     else:
         a = Project.objects.filter(name=project, user=request.user)
         form = projForm()
         for proj in a:
-            form = projForm(initial={'name': proj.name, 'description': proj.description})
+            idproject = proj.id
+            form = projForm(initial={
+                'name': proj.name,
+                'description': proj.description
+                })
 
     return render_to_response('form.html', RequestContext(request, {
         'form': form,
         'layout': layout,
+        'id': idproject,
         'title': 'Modificacion de Projecto:',
         }))
 
@@ -124,11 +136,12 @@ def searchProject(request):
         proyecto = request.POST.get('project', '')
         if form.is_valid():
             request.method = ''
-            return update_project(request, proyecto)
+        return update_project(request, proyecto)
     else:
         form = projectSearch()
     return render_to_response('form.html', RequestContext(request, {
         'form': form,
         'layout': layout,
         'title': 'Administrador de Proyecto',
+
         }))

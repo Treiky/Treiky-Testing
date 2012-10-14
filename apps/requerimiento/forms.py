@@ -46,7 +46,6 @@ class projForm(ModelForm):
         super(projForm, self).__init__(*args, **kwargs)
         self.fields['name'].label = "Nombre del Proyecto"
         self.fields['description'].label = "Descripcion"
-        self.fields['user'].label = "Asignacion de Usuarios"
         self.fields['name'].error_messages = {
             'required': 'El nombre es requerido'}
         self.fields['description'].error_messages = {
@@ -58,7 +57,7 @@ class projForm(ModelForm):
             'name': TextInput,
             'description': Textarea(attrs={'cols': 50, 'rows': 5}),
         }
-        fields = ('name', 'description', 'user')
+        fields = ('name', 'description')
 
 
 class newUserForm(ModelForm):
@@ -95,4 +94,4 @@ class RegistroUsuarioForm(ModelForm):
 
 
 class projectSearch(forms.Form):
-    project = forms.CharField()
+    project = forms.CharField(label = "Ingrese el nombre del proyecto a aeditar")

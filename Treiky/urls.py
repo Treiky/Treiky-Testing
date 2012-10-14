@@ -59,4 +59,6 @@ urlpatterns = patterns('',
         'apps.requerimiento.views.logoutuser', name='logoutuser'),
     url(r'^search_project/$',
         'apps.requerimiento.views.searchProject', name='searchProject'),
+    url(r'^update_project/$',
+        'apps.requerimiento.views.update_project', name='updateproject'),
 )

@@ -80,6 +80,7 @@
                             {% if user.is_superuser %}
                             <li><a href="/admin/"><span class="new-wrapper"><i class="icon-wrench"></i></span> Django Admin</a></li>
                             {% endif %}
+                            <li><a href="{% url editUserForm %}" ><span class="new-wrapper"><i class="icon-edit"></i></span> Editar Usuario</a></li>
                             <li><a href="/logout" ><span class="new-wrapper"><i class="icon-off"></i></span> Logout</a></li>
                             </ul>
                         </li>

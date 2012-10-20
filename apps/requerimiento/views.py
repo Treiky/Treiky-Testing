@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from apps.requerimiento.models import Requirement, Project, ProfilesUser
-from apps.requerimiento.forms import reqForm, projForm, newUserForm, projectSearch, asigUserProj
+from apps.requerimiento.forms import reqForm, projForm, projectSearch, asigUserProj, editUserForm, editUserForm
 
 @login_required
 def view_req(request):
@@ -85,12 +85,11 @@ def update_project(request, project):
     if request.method == 'POST':
         form = projForm(request.POST)
         idproject = request.POST.get('idproject', '')
-        print idproject
         if form.is_valid():
             new_proj = form.save(commit=False)
             new_proj.id = idproject
-            print new_proj.name
-            print new_proj.description
+            new_proj.name
+            new_proj.description
             new_proj.save(force_update=True)
             return resultado_alta_proyecto(request)
     else:
@@ -165,4 +164,19 @@ def new_user(request):
         'form': form,
         'layout': layout,
         'title': 'Alta de usuario:',
+        }))
+
+
+def edit_user(request):
+    layout = 'vertical'
+    if request.method == 'POST':
+        form = editUserForm(request.POST, instance=request.user)
+        if form.is_valid:
+            form.save()
+    else:
+        form = editUserForm(instance=request.user)
+    return render_to_response('form.html', RequestContext(request, {
+        'form': form,
+        'layout': layout,
+        'title': 'Editar de usuario:',
         }))

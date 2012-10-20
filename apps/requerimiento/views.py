@@ -7,7 +7,7 @@ from django.template import RequestContext
 from apps.requerimiento.models import Requirement, Project, ProfilesUser
 from apps.requerimiento.forms import reqForm, projForm, projectSearch, asigUserProj, editUserForm
 
-#Prueba
+
 @login_required
 def view_req(request):
     return render_to_response(

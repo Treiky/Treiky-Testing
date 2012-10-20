@@ -140,7 +140,7 @@ def asig_user(request):
 
     if request.method == 'POST':
         form = asigUserProj(request.POST)
-        if form.is_valid():
+        if form.is_valid:
             new_req = form.save(commit=False)
             new_req.save()
             return resultado_alta_proyecto(request)

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from apps.requerimiento.models import Requirement, Project, ProfilesUser
-from apps.requerimiento.forms import reqForm, projForm, projectSearch, asigUserProj, editUserForm, editUserForm
+from apps.requerimiento.forms import reqForm, projForm, projectSearch, asigUserProj, editUserForm
 
 @login_required
 def view_req(request):

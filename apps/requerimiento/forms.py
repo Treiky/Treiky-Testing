@@ -1,7 +1,7 @@
 # -*- coding: utf-8 *-*
 from django.forms import ModelForm, Textarea, Select, TextInput
 from django import forms
-from apps.requerimiento.models import Requirement, Project
+from apps.requerimiento.models import Requirement, Project, ProfilesUser
 from django.contrib.auth.models import User
 
 PRIORIDAD_CHOICES = (
@@ -87,11 +87,38 @@ class newUserForm(ModelForm):
         fields = ('username', 'first_name', 'last_name', 'email')
 
 
-class RegistroUsuarioForm(ModelForm):
+class asigUserProj(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user_details = kwargs.pop('initial', None)
+        super(asigUserProj, self).__init__(*args, **kwargs)
+        self.fields['project'].label = "Para el proyecto"
+        self.fields['user'].label = "Usuario"
+        self.fields['profile'].label = "Perfil"
+        self.fields['project'].error_messages = {
+            'required': 'Debe seleccionar un proyecto'}
+        self.fields['user'].error_messages = {
+            'required': 'Debe seleccionar un usuario'}
+        self.fields['profile'].error_messages = {
+            'required': 'Debe seleccionar un perfil'}
+        self.fields['project'].queryset = Project.objects.filter(
+            user=user_details)
+
+    class Meta:
+        model = ProfilesUser
+        widgets = {
+            'project': Select(),
+            'user': Select(),
+            'profile': Select(),
+        }
+        fields = ('project', 'user', 'profile')
+
+
+class EditUsuarioForm(ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
 
 
 class projectSearch(forms.Form):
-    project = forms.CharField(label = "Ingrese el nombre del proyecto a aeditar")
+    project = forms.CharField(label = "Ingrese el nombre del proyecto a editar")

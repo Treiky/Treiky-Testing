@@ -16,7 +16,9 @@ class Project(models.Model):
 
 
 class Profile(models.Model):
-
+    #Recorda que siempre el Primero debe ser el admin
+    #El segundo el Colaborador
+    #y el tercero el usuario comun
     name = models.TextField(max_length=20)
     description = models.TextField(max_length=50)
 

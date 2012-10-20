@@ -6,18 +6,6 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
-#urlpatterns = patterns('',
-    ## Examples:
-    ## url(r'^$', 'Treiky.views.home', name='home'),
-    ## url(r'^Treiky/', include('Treiky.foo.urls')),
-
-    ## Uncomment the admin/doc line below to enable admin documentation:
-    #url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    ## Uncomment the next line to enable the admin:
-    #url(r'^admin/', include(admin.site.urls)),
-#
-
 urlpatterns = patterns('',
     url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     # url(r'^$', 'IntentoTreiky.views.home', name='home'),
@@ -61,4 +49,6 @@ urlpatterns = patterns('',
         'apps.requerimiento.views.searchProject', name='searchProject'),
     url(r'^update_project/$',
         'apps.requerimiento.views.update_project', name='updateproject'),
+    url(r'^asigned_user/$',
+        'apps.requerimiento.views.asig_user', name='asiguser'),
 )

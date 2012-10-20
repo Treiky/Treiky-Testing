@@ -98,9 +98,9 @@ class asigUserProj(ModelForm):
         self.fields['project'].error_messages = {
             'required': 'Debe seleccionar un proyecto'}
         self.fields['user'].error_messages = {
-            'required': 'Debe seleccionar un usuario'}
+            'required': 'El campo es requerido'}
         self.fields['profile'].error_messages = {
-            'required': 'Debe seleccionar un perfil'}
+            'required': 'El campo es requerido'}
         self.fields['project'].queryset = Project.objects.filter(
             user=user_details)
 

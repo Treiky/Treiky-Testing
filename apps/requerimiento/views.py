@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from apps.requerimiento.models import Requirement, Project, ProfilesUser
-from apps.requerimiento.forms import reqForm, projForm, projectSearch, asigUserProj, editUserForm
+from apps.requerimiento.forms import reqForm, projForm, projectSearchV2, asigUserProj, editUserForm
 
 
 @login_required
@@ -79,7 +80,7 @@ def logoutuser(request):
 
 
 @login_required
-def update_project(request, project):
+def update_project(request):
     layout = 'vertical'
     idproject = 0
 
@@ -88,16 +89,16 @@ def update_project(request, project):
         idproject = request.POST.get('idproject', '')
         if form.is_valid():
             new_proj = form.save(commit=False)
-            new_proj.id = idproject
+            new_proj.id = request.session['idProject']
             new_proj.name
             new_proj.description
             new_proj.save(force_update=True)
             return resultado_alta_proyecto(request)
     else:
-        b = ProfilesUser.objects.filter(project__name=project, user=request.user, profile__id=1)
+        b = ProfilesUser.objects.filter(project__name=request.session['Proyecto'], user=request.user, profile__id=1)
         a = []
         for Perfuser in b:
-            a = Project.objects.filter(name=project, user=Perfuser.user)
+            a = Project.objects.filter(name=request.session['Proyecto'], user=Perfuser.user)
         form = projForm()
         for proj in a:
             idproject = proj.id
@@ -118,18 +119,20 @@ def update_project(request, project):
 def searchProject(request):
     layout = 'vertical'
     if request.method == 'POST':
-        form = projectSearch(request.POST)
-        proyecto = request.POST.get('project', '')
-        if form.is_valid():
-            request.method = ''
-        return update_project(request, proyecto)
+        form = projectSearchV2(request.POST)
+        a = request.POST.get('project', '')
+        print a
+        request.session['idProject'] = a
+        projectNombre = Project.objects.filter(id=a).only('name')
+        request.session['Proyecto'] = projectNombre[0]
+        request.method = ''
+        return HttpResponseRedirect("/update_project/")
     else:
-        form = projectSearch()
+        form = projectSearchV2(initial=request.user)
     return render_to_response('form.html', RequestContext(request, {
         'form': form,
         'layout': layout,
         'title': 'Editor de Proyecto',
-
         }))
 
 

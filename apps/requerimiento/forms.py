@@ -115,3 +115,22 @@ class asigUserProj(ModelForm):
 
 class projectSearch(forms.Form):
     project = forms.CharField(label = "Ingrese el nombre del proyecto a editar")
+
+
+class projectSearchV2(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        user_details = kwargs.pop('initial', None)
+        super(projectSearchV2, self).__init__(*args, **kwargs)
+        self.fields['project'].label = "Para el proyecto"
+        self.fields['project'].error_messages = {
+            'required': 'Debe seleccionar un proyecto'}
+        self.fields['project'].queryset = Project.objects.filter(
+            user=user_details)
+
+    class Meta:
+        model = Requirement
+        widgets = {
+            'project': Select(),
+        }
+        fields = ('project',)

@@ -25,9 +25,8 @@ class reqForm(ModelForm):
             'required': 'El campo es requerido'}
         self.fields['description'].error_messages = {
             'required': 'El campo es requerido'}
-        self.fields['project'].queryset = ProfilesUser.objects.filter(user=user_details).only('project')
-        #Project.objects.filter(
-        #    user=user_details)
+        a = ProfilesUser.objects.filter(user=user_details)
+        self.fields['project'].choices = [[x.project.id,x] for x in a]
 
     class Meta:
         model = Requirement
@@ -121,8 +120,8 @@ class asigUserProj(ModelForm):
             'required': 'El campo es requerido'}
         self.fields['profile'].error_messages = {
             'required': 'El campo es requerido'}
-        self.fields['project'].queryset = Project.objects.filter(
-            user=user_details)
+        a = ProfilesUser.objects.filter(user=user_details, profile__id=1).only('project')
+        self.fields['project'].choices = [[x.project.id,x] for x in a]
 
     class Meta:
         model = ProfilesUser
@@ -146,7 +145,8 @@ class projectSearchV2(ModelForm):
         self.fields['project'].label = "Para el proyecto"
         self.fields['project'].error_messages = {
             'required': 'Debe seleccionar un proyecto'}
-        self.fields['project'].queryset = ProfilesUser.objects.filter(user=user_details, profile__id=1).only('project')
+        a = ProfilesUser.objects.filter(user=user_details, profile__id=1).only('project')
+        self.fields['project'].choices = [[x.project.id,x] for x in a]
 
     class Meta:
         model = Requirement

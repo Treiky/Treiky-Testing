@@ -11,11 +11,14 @@ from apps.requerimiento.forms import reqForm, projForm, projectSearchV2, asigUse
 
 @login_required
 def view_req(request):
+    a = ProfilesUser.objects.filter(user=request.user).only('project')
+    b = [x.project.id for x in a]
+    print b
     return render_to_response(
         'list_Requirements.html',
         RequestContext(
             request,
-            {'requerimiento': Requirement.objects.filter(project__user=request.user).order_by('-date_created'),}
+            {'requerimiento': Requirement.objects.filter(project__id__in = b).order_by('-date_created'),}
             ),
                 )
 

@@ -50,6 +50,15 @@
                             <li><a href="{% url asiguser %}"><span class="new-wrapper"><i class="icon-user"></i></span> Asignar usuarios (Todavia no disponible)</a></li>
                             </ul>
                         </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Empresa
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                            <li><a href="{% url new_company %}"><span class="new-wrapper"><i class="icon-pencil"></i></span> Registrar Empresa</a></li>
+                            </ul>
+                        </li>
                     {% else %}
                         <li><a href="" > </a></li>
                         <li><a href="" > </a></li>

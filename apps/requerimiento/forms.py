@@ -1,7 +1,7 @@
 # -*- coding: utf-8 *-*
 from django.forms import ModelForm, Textarea, Select, TextInput, HiddenInput
 from django import forms
-from apps.requerimiento.models import Requirement, Project, ProfilesUser
+from apps.requerimiento.models import Requirement, Project, ProfilesUser, Company
 from django.contrib.auth.models import User
 
 PRIORIDAD_CHOICES = (
@@ -59,6 +59,26 @@ class projForm(ModelForm):
             'description': Textarea(attrs={'cols': 50, 'rows': 5}),
         }
         fields = ('name', 'description')
+
+####copybin
+
+
+class companyForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(companyForm, self).__init__(*args, **kwargs)
+        self.fields['company'].label = "Empresa"
+        self.fields['website'].label = "Web de la empresa"
+
+    class Meta:
+        model = Company
+        widgets = {
+            'company': TextInput,
+            'website': Textarea(attrs={'cols': 50, 'rows': 5}),
+        }
+        fields = ('company', 'website')
+
+####copybin
 
 
 class editUserForm(ModelForm):

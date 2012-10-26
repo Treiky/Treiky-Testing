@@ -51,3 +51,14 @@ class Requirement(models.Model):
         return "Author: %s, Requirement: %s" % (
             self.author.username, self.description,)
 
+####copybin
+
+
+class Company(models.Model):
+
+    company = models.TextField(max_length=20)
+    website = models.TextField(max_length=20)
+
+    def __unicode__(self):
+        return "%s" % (self.company)
+####copybin

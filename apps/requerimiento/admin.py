@@ -1,6 +1,6 @@
 # -*- coding: utf-8 *-*
 from django.contrib import admin
-from apps.requerimiento.models import Requirement, Project, Profile, ProfilesUser
+from apps.requerimiento.models import Requirement, Project, Profile, ProfilesUser, Company
 
 
 class reqAdmin(admin.ModelAdmin):
@@ -14,6 +14,14 @@ class profileAdmin(admin.ModelAdmin):
 
 class profileUserAdmin(admin.ModelAdmin):
     list_display = ('project', 'user', 'profile',)
+
+####copybin
+
+class profileCompany(admin.ModelAdmin):
+    list_display = ('company', 'website',)
+
+####copybin
+
 
 admin.site.register(Requirement, reqAdmin)
 admin.site.register(Project,)

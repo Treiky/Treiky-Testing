@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from apps.requerimiento.models import Requirement, Project, ProfilesUser
-from apps.requerimiento.forms import reqForm, projForm, projectSearchV2, asigUserProj, editUserForm
+from apps.requerimiento.forms import reqForm, projForm, projectSearchV2, asigUserProj, editUserForm, companyForm
 
 
 @login_required
@@ -58,6 +58,38 @@ def write_project(request):
         'layout': layout,
         'title': 'Alta de Proyectos:',
         }))
+
+####copybin
+
+
+@login_required
+def new_company(request):
+    layout = 'vertical'
+
+    if request.method == 'POST':
+        form = companyForm(request.POST)
+        if form.is_valid():
+            new_company = form.save(commit=False)
+            new_company.save()
+            return resultado_alta_empresa(request)
+        else:
+            form = companyForm()
+
+    return render_to_response('form_Empresas.html', RequestContext(request, {
+        'form': form,
+        'layout': layout,
+        'title': 'Alta Empresa',
+        }))
+
+
+def resultado_alta_empresa(request):
+    return render_to_response('respuesta.html', RequestContext(request, {
+        'mensaje': 'El Alta de empresa se registro correctamente',
+        }))
+
+
+####copybin
+
 
 
 def resultado_alta_usuario(request):

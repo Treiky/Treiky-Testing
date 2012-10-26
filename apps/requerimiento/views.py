@@ -59,36 +59,6 @@ def write_project(request):
         'title': 'Alta de Proyectos:',
         }))
 
-####copybin
-
-
-@login_required
-def new_company(request):
-    layout = 'vertical'
-
-    if request.method == 'POST':
-        form = companyForm(request.POST)
-        if form.is_valid():
-            new_company = form.save(commit=False)
-            new_company.save()
-            return resultado_alta_empresa(request)
-        else:
-            form = companyForm()
-
-    return render_to_response('form_Empresas.html', RequestContext(request, {
-        'form': form,
-        'layout': layout,
-        'title': 'Alta Empresa',
-        }))
-
-
-def resultado_alta_empresa(request):
-    return render_to_response('respuesta.html', RequestContext(request, {
-        'mensaje': 'El Alta de empresa se registro correctamente',
-        }))
-
-
-####copybin
 
 
 
@@ -216,3 +186,35 @@ def edit_user(request):
         'layout': layout,
         'title': 'Editar de usuario:',
         }))
+
+
+####copybin
+
+
+@login_required
+def new_company(request):
+    layout = 'vertical'
+
+    if request.method == 'POST':
+        form = companyForm(request.POST)
+        if form.is_valid():
+            new_company = form.save(commit=False)
+            new_company.save()
+            return resultado_alta_empresa(request)
+    else:
+            form = companyForm()
+
+    return render_to_response('form_Empresas.html', RequestContext(request, {
+        'form': form,
+        'layout': layout,
+        'title': 'Alta Empresa',
+        }))
+
+
+def resultado_alta_empresa(request):
+    return render_to_response('respuesta.html', RequestContext(request, {
+        'mensaje': 'El Alta de empresa se registro correctamente',
+        }))
+
+
+####copybin

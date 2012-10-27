@@ -17,7 +17,7 @@ class Project(models.Model):
 
 class Profile(models.Model):
     #Recorda que siempre el Primero debe ser el admin
-    #El segundo el Colaborador
+    #El segundo el Colabogit@github.com:Treiky/Treiky-Testing.gitrador
     #y el tercero el usuario comun
     name = models.TextField(max_length=20)
     description = models.TextField(max_length=50)
@@ -51,14 +51,4 @@ class Requirement(models.Model):
         return "Author: %s, Requirement: %s" % (
             self.author.username, self.description,)
 
-####copybin
 
-
-class Company(models.Model):
-
-    company = models.TextField(max_length=20)
-    website = models.TextField(max_length=20)
-
-    def __unicode__(self):
-        return "%s" % (self.company)
-####copybin

@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from apps.requerimiento.models import Requirement, Project, ProfilesUser
+from apps.requerimiento.models import Requirement, Project, ProfilesUser, Profile
 from apps.requerimiento.forms import reqForm, projForm, projectSearchV2, asigUserProj, editUserForm
 
 
@@ -49,9 +49,17 @@ def write_project(request):
 
     if request.method == 'POST':
         form = projForm(request.POST)
+        proyect_name = request.POST.get('name', '')
         if form.is_valid():
             new_proj = form.save(commit=False)
+            new_proj.author = request.user
             new_proj.save()
+            profiel = ProfilesUser(
+                project=Project.objects.filter(name=proyect_name, author=request.user)[0],
+                user= request.user,
+                profile= Profile.objects.filter(id=1)[0]
+                )
+            profiel.save()
             return resultado_alta_proyecto(request)
     else:
         form = projForm()
@@ -96,6 +104,7 @@ def update_project(request):
             new_proj = form.save(commit=False)
             new_proj.id = request.session['idProject']
             new_proj.name
+            new_proj.author = request.user
             new_proj.description
             new_proj.save(force_update=True)
             return resultado_alta_proyecto(request)
@@ -103,7 +112,7 @@ def update_project(request):
         b = ProfilesUser.objects.filter(project__name=request.session['Proyecto'], user=request.user, profile__id=1)
         a = []
         for Perfuser in b:
-            a = Project.objects.filter(name=request.session['Proyecto'], user=Perfuser.user)
+            a = Project.objects.filter(name=request.session['Proyecto'], author=Perfuser.user)
         form = projForm()
         for proj in a:
             idproject = proj.id

@@ -9,7 +9,7 @@ class Project(models.Model):
 
     name = models.TextField(max_length=20)
     description = models.TextField(max_length=150)
-    user = models.ManyToManyField(User, blank=True, null=True)
+    author = models.ForeignKey(User, blank=True, null=True)
 
     def __unicode__(self):
         return "%s" % (self.name,)

@@ -5,6 +5,7 @@ import datetime
 from django.contrib.auth.models import User
 #comentario
 
+
 class Project(models.Model):
 
     name = models.TextField(max_length=20)
@@ -45,6 +46,10 @@ class Requirement(models.Model):
     role = models.TextField(max_length=10)
     priority = models.TextField(max_length=8)
     description = models.TextField(max_length=140)
+    note = models.TextField(max_length=140, blank=True, null=True)
+    supuestos = models.TextField(max_length=140, blank=True, null=True)
+    estimaciones = models.DecimalField(max_digits=10, decimal_places=2,
+    blank=True, null=True)
     date_created = models.DateTimeField(default=datetime.datetime.now)
 
     def __unicode__(self):

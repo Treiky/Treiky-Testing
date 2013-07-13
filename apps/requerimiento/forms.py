@@ -5,9 +5,9 @@ from apps.requerimiento.models import Requirement, Project, ProfilesUser
 from django.contrib.auth.models import User
 
 PRIORIDAD_CHOICES = (
-    ('Poco', 'Poco'),
-    ('Medio', 'Medio'),
-    ('Mucho', 'Mucho'),)
+    ('baja', 'baja'),
+    ('media', 'media'),
+    ('alta', 'alta'),)
 
 
 class reqForm(ModelForm):
@@ -19,11 +19,14 @@ class reqForm(ModelForm):
         self.fields['role'].label = "Yo como"
         self.fields['priority'].label = "Esto importa"
         self.fields['description'].label = "Quiero poder"
+        self.fields['note'].label = "Nota"
         self.fields['project'].error_messages = {
             'required': 'Debe seleccionar un proyecto'}
         self.fields['role'].error_messages = {
             'required': 'El campo es requerido'}
         self.fields['description'].error_messages = {
+            'required': 'El campo es requerido'}
+        self.fields['note'].error_messages = {
             'required': 'El campo es requerido'}
         a = ProfilesUser.objects.filter(user=user_details)
         self.fields['project'].choices = [[x.project.id,x] for x in a]
@@ -34,9 +37,10 @@ class reqForm(ModelForm):
             'project': Select(),
             'role': TextInput(),
             'priority': Select(choices=PRIORIDAD_CHOICES),
-            'description': Textarea(attrs={'cols': 50, 'rows': 5}),
+            'description': Textarea(attrs={'cols': 70, 'rows': 5}),
+            'note': Textarea(attrs={'cols': 70, 'rows': 5}),
         }
-        fields = ('project', 'role', 'description', 'priority')
+        fields = ('project', 'role', 'description', 'priority', 'note')
         exclude = ['author', 'date_created']
 
 

@@ -15,14 +15,14 @@
         {{ form|as_bootstrap:layout }}
         <input type='hidden' name='idproject' value='{{ id }}' />
         {% if layout == "horizontal" %}
-            <p class="form-actions">
+            <!--<p class="form-actions">-->
                 <input type="submit" value="Solicitar" class="btn btn-inverse">
-            </p>
+            <!--</p>-->
         {% else %}
             <input type="submit" value="Solicitar" class="btn btn-inverse">
         {% endif %}
     </form>
 
-    <p>En caso de algun error al hacer Sudmit la pagina te retara.</p>
+    <!--<p>En caso de algun error al hacer Sudmit la pagina te retara.</p>-->
 
 {% endblock %}

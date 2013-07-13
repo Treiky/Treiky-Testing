@@ -25,7 +25,7 @@ def view_req(request):
 
 @login_required
 def write_req(request):
-    layout = 'vertical'
+    layout = 'horizontal'
 
     if request.method == 'POST':
         form = reqForm(request.POST)
